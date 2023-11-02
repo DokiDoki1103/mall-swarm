@@ -1,6 +1,7 @@
 package com.macro.mall.controller;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.json.JSONUtil;
 import com.macro.mall.common.api.CommonPage;
 import com.macro.mall.common.api.CommonResult;
 import com.macro.mall.common.domain.UserDto;
@@ -52,7 +53,11 @@ public class UmsAdminController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult login(@Validated @RequestBody UmsAdminLoginParam umsAdminLoginParam) {
-        return adminService.login(umsAdminLoginParam.getUsername(),umsAdminLoginParam.getPassword());
+        CommonResult login = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
+        System.out.println("这是登陆结果");
+        String jsonStr = JSONUtil.toJsonStr(login);
+        System.out.println(jsonStr);
+        return login;
     }
 
     @ApiOperation(value = "获取当前登录用户信息")
